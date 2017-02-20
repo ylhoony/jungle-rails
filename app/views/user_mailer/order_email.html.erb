@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv="content-type" />
+  </head>
+  <body>
+    <h1>Thanks for ordering at www.jungle.com,</h1>
+      <p>
+        Your order# <%= @order.id %> has been received and will be processed in the next 2 - 3 business days.
+      </p>
+      <p>
+        The items you ordered are listed below:
+      </p>
+        <%= @order.line_items.each do |line_item| %>
+        <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Unit Price</th>
+            <th>Quantity</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+          <tbody>
+            <tr>
+              <td>
+                <%= image_tag line_item.product.image.tiny %>
+              </td>
+              <td>
+                <h4><%= line_item.product.name %></h4>
+                <br>
+                <p><%= line_item.product.description %></p>
+              </td>
+              <td>
+                <%= line_item.item_price %>
+              </td>
+              <td>
+                <%= line_item.quantity %>
+              </td>
+              <td>
+                <%= line_item.total_price %>
+              </td>
+            </tr>
+          <tbody>
+        <tfoot>
+          <tr>
+            <th>
+              TOTAL:
+            </th>
+            <th>
+              <%= @order.total %>
+            </th>
+          </tr>
+        </tfoot>
+      </table>
+      <% end %>
