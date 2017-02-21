@@ -36,6 +36,11 @@ gem 'rmagick'
 gem 'stripe'
 gem 'faker'
 
+group :development, :test do
+  gem 'rspec-rails', '~> 3.5'
+end
+
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
