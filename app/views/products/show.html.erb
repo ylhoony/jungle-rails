@@ -26,6 +26,59 @@
       </div>
     </div>
 
+    <h2>Reviews</h2>
+    <%if !current_user %>
+    <% else %>
+    <div class="row">
+      <h4>Add a Product Review:</h4>
+      <%= form_for([@product, @product.reviews.build]) do |f| %>
+        <p>
+          <%= f.label :description %><br>
+          <%= f.text_area :description %>
+        </p>
+        <p>
+          <%= f.label :rating %><br>
+          <%= f.select (:rating) do %>
+
+            <% [['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5]].each do |c| -%>
+              <%= content_tag(:option, c.first, value: c.last) %>
+            <% end %>
+          <% end %>
+        </p>
+        <p>
+          <%= f.submit %>
+        </p>
+      <% end %>
+    </div>
+    <% end %>
+
+    <div class="row">
+
+      <div class="col-sm-12">
+      <% puts current_user.inspect %>
+        <% @product.reviews.reverse.each do |review| %>
+          <p>
+            <strong>Reviewer ID:</strong>
+            <%= review.user_id %>
+          </p>
+
+          <p>
+            <strong>Comment:</strong>
+            <%= review.description %>
+          </p>
+          <% if !current_user || current_user.id != review.user_id %>
+          <% else %>
+            <p>
+              <%= link_to 'Destroy Review', [review.product, review],
+               method: :delete,
+               remote: true,
+               data: { confirm: 'Are you sure?' } %>
+            </p>
+
+          <% end %>
+        <% end %>
+      </div>
+    </div>
   </article>
 
 </section>
