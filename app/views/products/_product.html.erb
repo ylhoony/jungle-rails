@@ -17,6 +17,10 @@
     <% end %>
   </footer>
 
+  <p class="description">
+    Overall Rating: <%= product.reviews.average(:rating) ? product.reviews.average(:rating) : 0  %>
+  </p>
+
   <aside class="price">
     <%= humanized_money_with_symbol product.price %>
   </aside>

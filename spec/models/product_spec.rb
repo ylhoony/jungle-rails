@@ -14,6 +14,7 @@ RSpec.describe Product, type: :model do
         name: "test product",
         quantity: 100
       )
+      expect(product).to be_valid
     end
 
     it "is not valid without a name" do

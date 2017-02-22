@@ -48,7 +48,7 @@
           data-name="Jungle"
           data-description="Hoon Lee's Jungle Order"
           data-locale="auto"
-          data-email="dreamaire@outlook.com"
+          data-email= <%= current_user ? current_user.email : "test@test.com" %>
           data-currency="cad">
         </script>
       <% end %>
