@@ -1,5 +1,3 @@
-# before_filter :authorize
-
 class CartsController < ApplicationController
 
   def show

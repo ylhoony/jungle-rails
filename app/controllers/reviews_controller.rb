@@ -1,44 +1,18 @@
 class ReviewsController < ApplicationController
 
-  # before_action :require_login
+  before_filter :authorize
 
   def create
+    @product = Product.find(params[:product_id])
 
     if !current_user
-      @product = Product.find(params[:product_id])
       redirect_to product_path(@product)
-      return
     end
 
-    @product = Product.find(params[:product_id])
     @review = @product.reviews.new(review_params)
     @review.user = current_user
     @review.save
     redirect_to product_path(@product)
-
-    # rev = @prod.reviews.new({desc: 'go away', rating: 2})
-    # rev = Review.new({desc: 'go away', rating: 2, prod: @prod.id})
-
-
-
-    # puts "current user #{current_user}"
-    # if ! @review.errors.empty?
-    #   @reviews.errors.full_messages.each {|msg| puts msg}
-    # else
-    #   puts "all chill"
-    # end
-
-    # @review.save
-
-
-
-    # @review.user = current_user
-
-    # if ! @review.errors.empty?
-    #   @reviews.errors.full_messages.each {|msg| puts msg}
-    # else
-    #   puts "all chill"
-    # end
   end
 
   def destroy
@@ -53,13 +27,31 @@ class ReviewsController < ApplicationController
     def review_params
       params.require(:review).permit(:description, :rating)
     end
-
-  # private
-  #   def require_login
-  #     unless logged_in?
-  #       flash[:error] = "You must be logged in to access this section"
-  #       redirect_to new_login_url # halts request cycle
-  #     end
-  #   end
-
 end
+
+
+# future reference
+#  def create
+#    values = params[:review]
+#    review = Review.new do |d|
+#      d.user = current_user
+#      d.product_id = params[:product_id]
+#      d.description = values[:description]
+#      d.rating = values[:rating]
+#    end
+
+#    if review.save
+#      redirect_to "/products/#{params[:product_id]}", notice: 'New review created'
+#    else
+#      # @product = Product.find(params[:product_id])
+#      # @review = Review.new
+#      redirect_to "/products/#{params[:product_id]}",error: review.errors.full_messages.first
+#    end
+#  end
+
+#  def destroy
+#    @reviewd = Review.find params[:id]
+#    @reviewd.destroy
+#    redirect_to "/products/#{params[:product_id]}", notice: 'Review deleted'
+#  end
+# end

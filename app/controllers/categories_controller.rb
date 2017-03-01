@@ -1,5 +1,3 @@
-before_filter :authorize
-
 class CategoriesController < ApplicationController
 
   def show
